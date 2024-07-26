@@ -5,6 +5,11 @@
     "source.organizeImports": "explicit"
   },
   "css.validate": false, // used for @tailwindcss
+  "eslint.validate": [
+    "javascript", // enable .js
+    "astro", // enable .astro
+    "typescript" // enable .ts
+  ],
   "prettier.requireConfig": true,
   "prettier.configPath": "prettierrc.mjs",
   "prettier.ignorePath": ".prettierignore",
