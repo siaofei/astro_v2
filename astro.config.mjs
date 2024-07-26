@@ -1,9 +1,8 @@
-import { defineConfig } from 'astro/config';
-import tailwind from "@astrojs/tailwind";
-
-import alpinejs from "@astrojs/alpinejs";
+import alpinejs from '@astrojs/alpinejs'
+import tailwind from '@astrojs/tailwind'
+import { defineConfig } from 'astro/config'
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), alpinejs()]
-});
+  integrations: [tailwind(), alpinejs()],
+})

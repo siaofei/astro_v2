@@ -1,0 +1,33 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  "css.validate": false, // used for @tailwindcss
+  "prettier.requireConfig": true,
+  "prettier.configPath": "prettierrc.mjs",
+  "prettier.ignorePath": ".prettierignore",
+  "prettier.trailingComma": "all",
+  "prettier.singleQuote": true,
+  "prettier.printWidth": 80,
+  "prettier.semi": false,
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "editor.tabSize": 2,
+  "editor.rulers": [80],
+  "search.exclude": {
+    "**/dist": true
+  },
+  "files.exclude": {
+    "**/.astro": true,
+    "**/.git": true,
+    "**/node_modules": true
+  },
+  "search.useIgnoreFiles": false,
+  "explorer.excludeGitIgnore": false,
+  "editor.stablePeek": false,
+  "editor.wordWrap": "off",
+  "editor.minimap.enabled": false,
+  "editor.stickyScroll.enabled": true
+}
