@@ -1,0 +1,68 @@
+---
+/**
+ * Footer
+ *
+ * @param footerType: 'white' | 'gray'
+ */
+
+import { Icon } from 'astro-icon/components'
+
+import Container from '@components/Container.astro'
+
+import me from '@data/me'
+import { containerWide } from '@utils/constants'
+
+const CafeIcon = 'cafe'
+const TbExternalLinkIcon = 'TbExternalLink'
+
+const aClass = 'hover:text-white whitespace-nowrap flex items-center gap-1'
+
+interface Props {
+  footerType?: 'white' | 'gray'
+}
+
+const { footerType } = Astro.props
+---
+
+<footer class="bg-nav-dark-bg text-gray-300">
+  <div
+    class:list={[
+      {
+        'bg-wave-bottom-white': !footerType || footerType === 'white',
+        'bg-wave-bottom-stone': footerType === 'gray',
+      },
+    ]}
+  >
+  </div>
+  <Container class:list={['!mt-0 py-6', containerWide]}>
+    <div
+      class="flex flex-row flex-wrap items-center justify-center gap-2 pb-1 pt-2 lg:flex-row"
+    >
+      <a class:list={[aClass]} href={'/about/'}> 关于 </a>
+      <span>|</span>
+      <a class:list={[aClass]} href="http://120.25.120.71:8091" target="_blank">
+        电影 <Icon name={TbExternalLinkIcon} />
+      </a>{' '}
+      <span>|</span>
+      <a class:list={[aClass]} href="https://astro.build" target="_blank">
+        Astro <Icon name={TbExternalLinkIcon} />
+      </a>{' '}
+      <span>|</span>
+      <a class:list={[aClass]} href={'/support-me/'}>
+        <Icon class="h-4 w-auto" name={CafeIcon} /> 支持
+      </a>
+    </div>
+    <div
+      class="flex flex-row flex-wrap items-center justify-center gap-2 pb-2 pt-1 lg:flex-row"
+    >
+      <a class:list={[aClass]} href={`mailto:${me.email}`}>
+        💌 {me.email}
+      </a>
+    </div>
+    <div
+      class="flex flex-row flex-wrap items-center justify-center gap-2 pb-2 pt-1 lg:flex-row"
+    >
+      <p>© 2024 Xiaofei Liu. All rights reserved.</p>
+    </div>
+  </Container>
+</footer>

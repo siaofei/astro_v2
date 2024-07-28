@@ -1,0 +1,43 @@
+---
+/**
+ * Nav Topic Item (or Menu Item)
+ *
+ * @param uri - string
+ * @param label - string
+ * @param customClass - string | null
+ */
+
+import { textClass } from './Nav.astro'
+
+function areSameUris(uri: string, currentRoute: string) {
+  return uri === currentRoute || uri === currentRoute + '/'
+}
+
+export const menuItemCommonClass =
+  'px-3 py-1.5 rounded-md text-base font-medium text-center h-full flex items-center justify-center whitespace-nowrap whitespace-nowrap'
+
+/* type NavTopicItemProps */
+interface Props {
+  uri: string
+  label: string
+  customClass?: string
+}
+
+const { uri, label, customClass } = Astro.props
+
+const currentRoute = Astro.url.pathname
+const isCurrent = areSameUris(uri, currentRoute)
+---
+
+<a
+  class:list={[
+    { 'bg-slate-800 text-white': isCurrent, [`${textClass}`]: !isCurrent },
+    menuItemCommonClass,
+    customClass,
+  ]}
+  aria-current={isCurrent ? 'page' : undefined}
+  href={uri}
+  data-astro-prefetch={false}
+>
+  {label}
+</a>

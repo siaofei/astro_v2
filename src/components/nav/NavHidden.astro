@@ -1,0 +1,63 @@
+---
+/**
+ * Nav Hidden Menus (Kebab Menu)
+ *
+ * @param class - css class properties
+ */
+
+import { Icon } from 'astro-icon/components'
+
+import { textClass } from './Nav.astro'
+import { menuItemCommonClass } from './NavTopicItem.astro'
+
+import { HIDDEN_MENUS } from '@data/menus'
+
+const ThreeDotsIcon = 'ThreeDotsIcon'
+
+const { class: className } = Astro.props
+---
+
+<div class={className}>
+  <!-- Menu -->
+  <div x-data="{ open: false }">
+    <!-- MenuButton -->
+    <button
+      class:list={[textClass, menuItemCommonClass, '!px-1.5']}
+      x-ref="MenuButton"
+      x-on:click="open = ! open"
+    >
+      <Icon name={ThreeDotsIcon} class="text-2xl" />
+      <!-- MenuItems -->
+      <div
+        class="bg-nav-dark-bg relative z-50 grid divide-y divide-slate-600 rounded-md border-[0.5px] border-slate-600"
+        x-anchor.bottom-end="$refs.MenuButton"
+        x-transition:enter="transition ease-out duration-75"
+        x-transition:enter-start="opacity-0 scale-95"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition ease-in duration-100"
+        x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-95"
+        x-show="open"
+        x-on:click.outside="open = false"
+        x-cloak
+      >
+        {
+          HIDDEN_MENUS.map((item) => (
+            // MenuItem
+            <div role="menuitem" tabindex="-1">
+              <a
+                href={item.uri}
+                class:list={['flex items-center whitespace-nowrap', textClass]}
+              >
+                <div class="flex gap-2 px-4 py-3">
+                  {item.icon}
+                  {item.name}
+                </div>
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </button>
+  </div>
+</div>

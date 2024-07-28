@@ -1,0 +1,42 @@
+---
+/**
+ * BaseLayout
+ */
+
+import Nav from '@components/nav/Nav.astro'
+
+import me from '@data/me'
+
+import '@styles/global.css'
+
+export type Metadata = {
+  title: string // the title of the document
+  description?: string // the description of the document
+}
+
+interface Props {
+  metadata: Metadata
+}
+
+const { metadata } = Astro.props
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={metadata.description || me.quote} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{`${metadata.title} | 刘晓飞的个人网站`}</title>
+  </head>
+  <body>
+    <div class="flex min-h-screen flex-col justify-between">
+      <Nav />
+      <div class="mb-auto">
+        <main><slot /></main>
+      </div>
+    </div>
+  </body>
+</html>

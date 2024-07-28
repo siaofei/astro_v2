@@ -1,0 +1,36 @@
+---
+/**
+ * NavSearch
+ *
+ * TODO: Search function
+ */
+
+import { Icon } from 'astro-icon/components'
+
+const FiSearchIcon = 'FiSearch'
+---
+
+<div
+  x-data="{isSearchOpen: false, searchKeyText: 'Ctrl + K'}"
+  class="flex flex-1 justify-end"
+>
+  <button
+    type="button"
+    class="group flex h-full items-center justify-center gap-2 rounded-md px-2 py-1.5 text-slate-300 hover:bg-gray-700 hover:text-white focus:outline-none"
+    x-on:click="isSearchOpen = ! isSearchOpen"
+    x-on:keydown.ctrl.k.window.prevent="isSearchOpen = true"
+  >
+    <div>
+      <Icon name={FiSearchIcon} class="h-5 w-5" />
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="hidden whitespace-nowrap sm:inline">搜索笔记</span>
+      <span class="inline whitespace-nowrap sm:hidden">搜索</span>
+      <span
+        class="hidden whitespace-nowrap rounded-sm border-[0.5px] border-[#555] bg-[#65666b30] px-1 text-[0.7rem] sm:inline-block"
+        x-text="(navigator?.platform?.toLowerCase() || '').includes('mac') ? '⌘ K' : 'Ctrl K'"
+      >
+      </span>
+    </div>
+  </button>
+</div>

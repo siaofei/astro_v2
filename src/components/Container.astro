@@ -1,0 +1,13 @@
+---
+/**
+ * Container
+ *
+ * @param class - css class properties
+ */
+
+const { class: className } = Astro.props
+---
+
+<div class:list={['container mx-auto px-5', className]}>
+  <slot />
+</div>

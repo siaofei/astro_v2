@@ -1,0 +1,72 @@
+---
+/**
+ * Navigation Component
+ */
+
+import Container from '@components/Container.astro'
+
+import NavAvatar from './NavAvatar.astro'
+import NavHidden from './NavHidden.astro'
+import NavSearch from './NavSearch.astro'
+import NavTopicItem from './NavTopicItem.astro'
+import NavTopicsDropdown from './NavTopicsDropdown.astro'
+
+import { MENUS, type MenuType } from '@data/menus'
+import { containerWide } from '@utils/constants'
+
+export const textClass =
+  'text-gray-300 md:hover:text-white md:hover:bg-gray-700'
+export const groupSpaceClass = 'ml-2 md:ml-4'
+
+const navHeight = 'h-14'
+const navClasses = 'bg-nav-dark-bg shadow-transparent text-gray-300'
+---
+
+<div class:list={['sticky left-0 top-0 z-50 w-full', navClasses, navHeight]}>
+  <Container class:list={['h-full', containerWide]}>
+    <div class="flex h-full flex-wrap items-center justify-stretch">
+      <div class="w-full">
+        <div class="nav mx-auto px-4 lg:px-2">
+          <div class="relative flex items-center justify-center">
+            <nav
+              class="flex flex-1 items-center justify-center gap-2 sm:gap-0 md:justify-start"
+              aria-label="Menu"
+            >
+              <NavAvatar />
+              <div class={groupSpaceClass}>
+                <div class="flex items-center sm:space-x-2">
+                  {
+                    MENUS?.map((item: MenuType) => (
+                      <NavTopicItem
+                        uri={item.uri}
+                        label={item.name}
+                        customClass="hidden lg:flex"
+                      />
+                    ))
+                  }
+                  <NavHidden class="hidden lg:block" />
+                  <NavTopicsDropdown />
+                </div>
+              </div>
+              <!-- NavSearch -->
+              <NavSearch />
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+
+  <!-- <progress> tag hard to style. -->
+  <span
+    class="absolute bottom-0 h-[3px] w-full bg-[#ffa541]"
+    role="progressbar"
+    aria-label="default progress bar"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    x-data="{completion: 0}"
+    x-on:scroll.window="completion = (window.scrollY / (document.body.scrollHeight - window.innerHeight)).toFixed(2) * 100"
+    x-bind:style="{transform: `translateX(${completion - 100}%`}"
+    x-bind:aria-valuenow="`${100 - completion}`"
+    x-cloak></span>
+</div>

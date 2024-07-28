@@ -14,6 +14,13 @@ Astro 4.11+ 🤝 Apline.js 🤝 Tailwind CSS
 pnpm dlx @astrojs/upgrade
 ```
 
+> [!NOTE]
+> Astro Icon 是第三方插件，暂时不支持 Astro 官方更新命令。
+>
+> ```sh
+> pnpm add astro-icon@latest
+> ```
+
 ### 👉 常用命令
 
 | Command                    | Action                                           |

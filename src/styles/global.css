@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-size: 14.5px;
+  }
+}
+
+@layer components {
+  .thi-bg {
+    @apply bg-white;
+  }
+
+  /**
+   * Don't forget to change manually for "wave-stone" and "wave-footer-stone"
+   * classes in tailwind.config.js
+   */
+  .thi-bg-stone {
+    @apply bg-stone-100;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 2px 2px 4px black;
+  }
+  .text-shadow-md {
+    text-shadow: 4px 4px 8px black;
+  }
+  .text-shadow-lg {
+    text-shadow: 15px 15px 30px black;
+  }
+  .text-shadow-none {
+    text-shadow: none;
+  }
+  .bg-wave-top-white {
+    @apply after:bg-wave after:block after:h-8 after:w-full;
+  }
+  .bg-wave-bottom-white {
+    @apply before:bg-wave-footer before:block before:h-8 before:w-full;
+  }
+  .bg-wave-top-stone {
+    @apply after:bg-wave-stone after:block after:h-8 after:w-full;
+  }
+  .bg-wave-bottom-stone {
+    @apply before:bg-wave-footer-stone before:block before:h-8 before:w-full;
+  }
+}
+
+[x-cloak] {
+  display: none !important;
+}

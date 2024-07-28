@@ -1,0 +1,36 @@
+---
+/**
+ * Scroll To Top Button
+ *
+ * Use Aplinejs as interactive framework
+ *
+ * @param positionClassName - css class properties
+ */
+
+import { Icon } from 'astro-icon/components'
+
+const BackToTopIcon = 'BackToTopIcon'
+
+interface Props {
+  positionClassName?: string
+}
+
+const { positionClassName } = Astro.props
+---
+
+<div x-data="{opacity: 'opacity-0'}">
+  <button
+    type="button"
+    class:list={[
+      'group fixed z-50 flex h-12 w-12 items-center justify-center rounded-full bg-slate-200 p-2 transition-all duration-300 hover:bg-slate-300',
+      positionClassName ? positionClassName : 'bottom-8 right-10',
+    ]}
+    x-show="opacity"
+    x-on:click="window.scrollTo({top: 0, behavior: 'smooth'}); opacity = 'opacity-0'"
+    x-on:scroll.window="window.scrollY > 100 ? opacity = 'opacity-100' : opacity = 'opacity-0'"
+    x-bind:class="opacity"
+    x-cloak
+  >
+    <Icon name={BackToTopIcon} />
+  </button>
+</div>
