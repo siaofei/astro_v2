@@ -3,8 +3,6 @@
  * Home Page
  */
 
-import type { Metadata } from '@layouts/BaseLayout.astro'
-
 import Container from '@components/Container.astro'
 import Footer from '@components/Footer.astro'
 import ScrollToTop from '@components/ScrollToTop.astro'
@@ -12,6 +10,8 @@ import BaseLayout from '@layouts/BaseLayout.astro'
 
 import me from '@data/me'
 import { bodyPadding, containerWide } from '@utils/constants'
+
+import type { Metadata } from '@layouts/BaseLayout.astro'
 
 const metadata: Metadata = {
   title: '嘿！我是刘晓飞',

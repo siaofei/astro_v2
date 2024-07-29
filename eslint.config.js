@@ -18,7 +18,10 @@ export default tseslint.config(
   ...eslintPluginAstro.configs['flat/jsx-a11y-recommended'], // astro components A11Y
   /* @ts-expect-error languageOptions emcaVersion type incompatible */
   eslintPluginUnicorn.configs['flat/recommended'],
-  stylistic.configs['recommended-flat'],
+  stylistic.configs.customize({
+    jsx: false, // disable jsx support
+    arrowParens: true, // consistent with prettier
+  }),
   {
     languageOptions: {
       ecmaVersion: 'latest',
@@ -53,6 +56,9 @@ export default tseslint.config(
         },
       ],
       '@stylistic/quote-props': 'off',
+      '@stylistic/operator-linebreak': 'off', // conflict with prettier
+      'unicorn/filename-case': 'off',
+      'unicorn/prevent-abbreviations': 'off',
     },
   },
   eslintConfigPrettier, // disable formatting rules

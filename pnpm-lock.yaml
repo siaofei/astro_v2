@@ -39,6 +39,9 @@ importers:
       '@eslint/js':
         specifier: ^9.7.0
         version: 9.7.0
+      '@ianvs/prettier-plugin-sort-imports':
+        specifier: ^4.3.1
+        version: 4.3.1(prettier@3.3.3)
       '@stylistic/eslint-plugin':
         specifier: ^2.4.0
         version: 2.4.0(eslint@9.7.0)(typescript@5.5.4)
@@ -3759,7 +3762,6 @@ snapshots:
       semver: 7.6.3
     transitivePeerDependencies:
       - supports-color
-    optional: true
 
   '@iconify/tools@3.0.7':
     dependencies:

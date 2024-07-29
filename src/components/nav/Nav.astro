@@ -4,15 +4,16 @@
  */
 
 import Container from '@components/Container.astro'
-
 import NavAvatar from './NavAvatar.astro'
 import NavHidden from './NavHidden.astro'
 import NavSearch from './NavSearch.astro'
 import NavTopicItem from './NavTopicItem.astro'
 import NavTopicsDropdown from './NavTopicsDropdown.astro'
 
-import { MENUS, type MenuType } from '@data/menus'
+import { MENUS } from '@data/menus'
 import { containerWide } from '@utils/constants'
+
+import type { MenuType } from '@data/menus'
 
 export const textClass =
   'text-gray-300 md:hover:text-white md:hover:bg-gray-700'

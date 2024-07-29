@@ -52,10 +52,10 @@ const dropdownItemClass = 'flex items-center p-3 whitespace-nowrap'
     <div class="overflow-hidden rounded-lg shadow-lg">
       <!-- PopoverPanelItems -->
       <div
-        class="bg-nav-dark-bg relative grid divide-y divide-slate-600 px-3 py-1"
+        class="relative grid divide-y divide-slate-600 bg-nav-dark-bg px-3 py-1"
       >
         {
-          MENUS.concat(HIDDEN_MENUS).map((item) => (
+          [...MENUS, ...HIDDEN_MENUS].map((item) => (
             <a
               class:list={[dropdownItemClass, 'sm:hover:text-white']}
               href={item.uri}
