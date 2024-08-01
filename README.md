@@ -50,3 +50,30 @@ pnpm exec prettier . --write
 # pnpm exec eslint [options] [file|dir|glob]*
 pnpm exec eslint . # format all files in worksapce
 ```
+
+## 🧐 使用方法
+
+### 🔖 书签
+
+在 `src/content/bookmarks` 下创建新书签。
+
+```yaml
+# src/content/bookmarks/example.yaml
+url: https://example.com # 必填项：标签的网址
+date: 2024-08-01 # 必填项：创建日期（建议不要修改）
+title: 书签标题 # 可选项
+description: 标签描述 # 可选项
+tags: ['标签1', '标签1', '标签1'] # 可选项：默认为 ['others']
+favorite: true # 可选项：默认为 false
+pinned: true # 可选项：默认为 false
+keySearch: 关键字1 关键字2 关键字3 # 可选项
+```
+
+> [!TIP] 添加标签图标 （⚠️仅支持 SVG 格式）
+>
+> 1. 下载标签图标（SVG 格式）
+> 2. 图标放在 `src/icons/tags/`目录
+> 3. [`iconTagsList`] 添加对应的标签和图标的映射。
+> 4. 重新构建网站
+>
+> [`iconTagsList`]: src/components/bookmarks/BookmarksPage.astro#iconTagsList
