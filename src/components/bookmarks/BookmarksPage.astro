@@ -1,0 +1,122 @@
+---
+/**
+ * Bookmarks Page
+ *
+ * TODO: 搜索功能和标签交互功能实现
+ *
+ * @param {BookmarkItem[]} bookmarks
+ * @param {string[]} tags
+ */
+
+import { Icon } from 'astro-icon/components'
+
+import BookmarkItemTemplate from '@components/bookmarks/BookmarkItemTemplate.astro'
+
+import type { BookmarkItem } from '@/types'
+
+const BsFillBookmarkHeartFillIcon = 'BsFillBookmarkHeartFill'
+const IoCloseCircleIcon = 'IoCloseCircle'
+
+const iconTagList: { [x: string]: string } = {
+  favorite: 'StarIcon',
+  linux: 'tags/TagLinuxIcon',
+  macos: 'tags/TagMacOSIcon',
+  android: 'tags/TagAndroidIcon',
+  ios: 'tags/TagIOSIcon',
+  windows: 'tags/TagWindowsIcon',
+  AI: 'tags/TagAIIcon',
+  dev: 'tags/TagDevIcon',
+  tools: 'tags/TagToolsIcon',
+  education: 'tags/TagEducationIcon',
+  youtube: 'tags/TagYoutubeIcon',
+  bilibili: 'tags/TagBilibiliIcon',
+  book: 'tags/TagBookIcon',
+  math: 'tags/TagMathIcon',
+  mooc: 'tags/TagMoocIcon',
+  'learning resources': 'tags/TagLearningResourcesIcon',
+  'personal site': 'tags/TagPersonalSiteIcon',
+  'web dev': 'tags/TagWebAppIcon',
+}
+
+interface Props {
+  bookmarks: BookmarkItem[]
+  tags: string[]
+}
+const { bookmarks, tags } = Astro.props
+---
+
+<div class="flex flex-col gap-6">
+  {/* Search */}
+  <div
+    class="flex items-center gap-3 rounded-md bg-white p-4"
+    x-data="{ query: '' }"
+  >
+    <input
+      class="m2it-hide-wscb peer h-full w-full text-ellipsis bg-transparent pr-2 outline-none"
+      id="search"
+      type="search"
+      placeholder="搜索书签…"
+      autocomplete="off"
+      x-model="query"
+    />
+    <button x-show="query" x-on:click="query = ''"
+      ><Icon name={IoCloseCircleIcon} class="h-5 w-5 text-slate-500" />
+    </button>
+  </div>
+
+  {/* Tags */}
+  <div
+    class="flex flex-wrap items-center justify-start gap-3 sm:justify-start md:flex-nowrap md:items-baseline"
+  >
+    <div class="flex flex-wrap items-center gap-2.5">
+      {
+        tags?.map((tag) => (
+          <button
+            type="button"
+            class:list={[
+              'flex flex-row items-center gap-2 rounded-sm border px-3 py-1.5 text-slate-700 transition duration-200 ease-in-out',
+            ]}
+          >
+            {iconTagList[tag] && (
+              <Icon name={iconTagList[tag]} class="h-5 w-5" />
+            )}
+            <div class="whitespace-nowrap text-base">{tag}</div>
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <div class="rounded-md border bg-green-100 p-4 text-gray-800">
+    <span class="mr-2">👉</span> In addition to the{' '}
+    <span class="m2it-link cursor-pointer"> tools </span>{' '}
+    on this page, you can explore other tools I{"'"}m using{' '}
+    <a class="m2it-link" href="/tools/"> here </a>
+    !
+  </div>
+
+  {/* Bookmarks list */}
+  <div id="searchResult" class="flex flex-col gap-4">
+    <div class="text-sm italic text-slate-600">
+      Descriptions are sometimes fetched automatically from the bookmark! The
+      recently added ones come first.
+    </div>
+    {
+      bookmarks.length > 0 && (
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+          {bookmarks.map((mark) => (
+            <BookmarkItemTemplate mark={mark} />
+          ))}
+        </div>
+      )
+    }
+    {
+      bookmarks.length === 0 && (
+        <div class="mt-8 flex w-full items-center justify-center gap-2 text-slate-500">
+          <Icon name={BsFillBookmarkHeartFillIcon} class="text-2xl" />
+          <div>No bookmark found.</div>
+        </div>
+      )
+    }
+  </div>
+</div>

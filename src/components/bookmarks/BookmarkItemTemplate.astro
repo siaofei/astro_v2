@@ -1,0 +1,107 @@
+---
+/**
+ * Bookmark Item Template
+ *
+ * No featured image (i.e. coverUrl unused)
+ *
+ * @param {BookmarkItem} mark - BookmarkItem
+ * @param {boolean} [hideTags=false] - true for hidding tags
+ * @param {boolean} [hidePinIcon=false] - true for hidding pin icon
+ * @param {boolean} [hideDescription=false] - true for hidding description
+ */
+
+import { Icon } from 'astro-icon/components'
+
+import type { BookmarkItem } from '@/types'
+
+const BsPinAngleFillIcon = 'BsPinAngleFill'
+const StarIcon = 'StarIcon'
+
+interface Props {
+  mark: BookmarkItem
+  hidePinIcon?: boolean
+  hideDescription?: boolean
+  hideTags?: boolean
+}
+
+const { mark, hidePinIcon, hideDescription, hideTags } = Astro.props
+---
+
+<div class="flex w-full">
+  {
+    mark.pinned && !hidePinIcon && (
+      <div class="relative z-50">
+        <div class="absolute -top-2 left-2 text-red-500">
+          <Icon name={BsPinAngleFillIcon} class="text-xl" />
+        </div>
+      </div>
+    )
+  }
+  <a
+    href={mark.url}
+    target="_blank"
+    rel="noopener noreferrer"
+    class:list={[
+      'group flex w-full flex-col gap-4 overflow-hidden rounded-md border border-slate-200 bg-white px-5 py-4 hover:border-sky-300 sm:flex-row',
+      { 'relative pr-8': mark.favorite },
+    ]}
+  >
+    {
+      mark.favorite && (
+        <div
+          class="tooltip-auto _from-right absolute right-4 top-4 text-amber-400"
+          data-title="My favorite"
+        >
+          <Icon name={StarIcon} class="text-xl" />
+        </div>
+      )
+    }
+    {/* Content */}
+    <div class="flex flex-col justify-start gap-3">
+      <div class="flex flex-col gap-1.5">
+        <div
+          class="overflow-hidden text-ellipsis"
+          data-created-date={mark.date.toString()}
+          x-data=`{ isNow() { const now = new Date(); const markDate = new Date($el.dataset.createdDate); const diffInDays = (now.getTime() - markDate.getTime()) / (1000 * 3600 * 24); if (diffInDays <= 7) { return true } else { return false } }}`
+        >
+          <span
+            x-show="isNow()"
+            class="mr-2 inline whitespace-nowrap rounded-md bg-amber-200 px-2 py-0 align-middle text-[0.75rem] text-amber-900"
+          >
+            new
+          </span>
+
+          <span class="m2it-link group-hover:m2it-link-hover text-[1.05rem]">
+            {mark.title}
+          </span>
+          <span class="whitespace-nowrap text-[0.8rem] italic text-slate-500">
+            {' '}
+            — {mark.url.replace(/\/$/, '')}
+          </span>
+        </div>
+        {
+          !!mark.tags?.length && !hideTags && (
+            <div class="flex w-full flex-row flex-wrap items-center gap-x-2 gap-y-1">
+              {mark.tags
+                ?.filter((tag) => tag !== 'favorite')
+                ?.map((tag) => (
+                  <span class="whitespace-nowrap rounded-md border px-2 py-0.5 text-[0.8rem] text-slate-700">
+                    {tag}
+                  </span>
+                ))}
+            </div>
+          )
+        }
+      </div>
+      {
+        !!mark.description &&
+          !!mark.description?.length &&
+          !hideDescription && (
+            <div class="text-[0.95rem] text-slate-700 group-hover:text-slate-900">
+              {mark.description}
+            </div>
+          )
+      }
+    </div>
+  </a>
+</div>

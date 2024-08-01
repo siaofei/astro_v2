@@ -1,0 +1,64 @@
+---
+/**
+ * Bookmarks Home Page
+ */
+
+import BookmarksPage from '@components/bookmarks/BookmarksPage.astro'
+import Container from '@components/Container.astro'
+import Footer from '@components/Footer.astro'
+import HeaderPage from '@components/header/HeaderPage.astro'
+import ScrollToTop from '@components/ScrollToTop.astro'
+import BaseLayout from '@layouts/BaseLayout.astro'
+
+import { bodyPadding, containerWide } from '@utils/constants'
+import { getAllBookmarks } from '@utils/helpers'
+
+const title = '书签'
+const description = '收集目前我发现很有用的文章、视频，其他资源的链接。'
+
+const metadata = {
+  title: title,
+  description: description,
+}
+
+const { bookmarks, tags } = await getAllBookmarks()
+
+// Make "others" tag always at the end
+const othersIndex = tags.indexOf('others')
+if (othersIndex !== -1) {
+  tags.push(tags.splice(othersIndex, 1)[0])
+}
+
+// Add "favorite" tag to the first
+tags.unshift('favorite')
+
+// Make bookmarks whose pinned is true always at the beginning
+bookmarks.sort((a, b) =>
+  a.pinned === b.pinned ? 0
+  : a.pinned ? -1
+  : 1,
+)
+---
+
+<BaseLayout metadata={metadata}>
+  <div class="thi-bg-stone flex flex-col">
+    <HeaderPage
+      slotContainerClassName="w-full"
+      headerType="gray"
+      title={title}
+      subtitle={description}
+      headerWidth="wide"
+      icon={{ sourceUrl: '/bookmarks.png' }}
+      iconClassName="h-12 w-12"
+      number={bookmarks.length}
+    />
+    <Container
+      class:list={['z-0 shrink-0 grow basis-auto', bodyPadding, containerWide]}
+    >
+      <BookmarksPage bookmarks={bookmarks} tags={tags} />
+    </Container>
+
+    <Footer footerType="gray" />
+    <ScrollToTop />
+  </div>
+</BaseLayout>

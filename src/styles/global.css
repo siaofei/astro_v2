@@ -6,6 +6,22 @@
   html {
     font-size: 14.5px;
   }
+
+  .m2it-link-hover {
+    @apply text-pink-600;
+  }
+
+  .m2it-link {
+    @apply hover:m2it-link-hover font-normal text-[#015caa] no-underline;
+  }
+
+  /* Hide webkit search cancel button */
+  .m2it-hide-wscb {
+    &::-webkit-search-cancel-button {
+      -webkit-appearance: none;
+      display: none;
+    }
+  }
 }
 
 @layer components {
@@ -20,6 +36,48 @@
   .thi-bg-stone {
     @apply bg-stone-100;
   }
+
+  .thi-text-color {
+    @apply text-main;
+  }
+
+  .thi-text-rainbow {
+    @apply bg-gradient-to-r from-[#ff88c3] to-violet-400 bg-clip-text text-transparent;
+  }
+
+  /* Display as normal text except hoving or on small screen */
+  .thi-link-normal {
+    @apply md:thi-text-color w-fit text-link md:hover:text-pink-500;
+  }
+  /* For bg always in dark mode */
+  .thi-link-normal-always-dark {
+    @apply w-fit text-[#ffd479] md:text-[#f8fafc] md:hover:text-[#ffd479];
+  }
+
+  .thi-link {
+    @apply text-link transition-colors duration-150 hover:text-pink-500;
+  }
+  .thi-link-always-dark {
+    @apply text-[#ffd479] transition-colors duration-150 hover:text-pink-300;
+  }
+
+  .thi-transition-dark {
+    @apply transition-colors duration-200 ease-in-out;
+  }
+
+  .thi-box-code {
+    @apply thi-transition-dark thi-bg thi-text-color rounded-lg shadow-lg;
+  }
+
+  .thi-badge-code {
+    @apply thi-transition-dark thi-text-color flex h-6 w-fit items-center justify-center rounded-md border bg-stone-100 px-1 align-baseline text-base shadow-sm transition duration-200 ease-in-out hover:-translate-y-0.5;
+  }
+
+  .thi-title {
+    @apply text-3xl font-semibold text-[#f8fafc];
+  }
+
+  /* Override prose class */
 }
 
 @layer utilities {
@@ -36,16 +94,16 @@
     text-shadow: none;
   }
   .bg-wave-top-white {
-    @apply after:bg-wave after:block after:h-8 after:w-full;
+    @apply after:block after:h-8 after:w-full after:bg-wave;
   }
   .bg-wave-bottom-white {
-    @apply before:bg-wave-footer before:block before:h-8 before:w-full;
+    @apply before:block before:h-8 before:w-full before:bg-wave-footer;
   }
   .bg-wave-top-stone {
-    @apply after:bg-wave-stone after:block after:h-8 after:w-full;
+    @apply after:block after:h-8 after:w-full after:bg-wave-stone;
   }
   .bg-wave-bottom-stone {
-    @apply before:bg-wave-footer-stone before:block before:h-8 before:w-full;
+    @apply before:block before:h-8 before:w-full before:bg-wave-footer-stone;
   }
 }
 

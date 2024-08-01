@@ -1,0 +1,44 @@
+---
+/**
+ * Header Container
+ *
+ * @param {(string|undefined)} slotContainerClassName
+ * @param {('white'|'gray')} [headerType='white']
+ * @param {('wide'|'normal')} [headerWidth='normal']
+ */
+
+import Container from '@components/Container.astro'
+
+import { containerNormal, containerWide } from '@utils/constants'
+
+interface Props {
+  slotContainerClassName?: string
+  headerType?: 'white' | 'gray'
+  headerWidth?: 'wide' | 'normal'
+}
+
+const { slotContainerClassName, headerType, headerWidth } = Astro.props
+---
+
+<div class="bg-gradient-to-b from-main-dark-bg to-nav-dark-bg">
+  <Container class={headerWidth === 'wide' ? containerWide : containerNormal}>
+    <div
+      class:list={[
+        'mx-auto flex flex-col flex-wrap items-center justify-items-stretch px-0 py-8 md:flex-row',
+        slotContainerClassName,
+      ]}
+    >
+      <slot />
+    </div>
+  </Container>
+
+  <div
+    class:list={[
+      {
+        'bg-wave-top-white': !headerType || headerType === 'white',
+        'bg-wave-top-stone': headerType === 'gray',
+      },
+    ]}
+  >
+  </div>
+</div>

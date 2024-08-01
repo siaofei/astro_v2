@@ -1,12 +1,12 @@
 // @ts-check
+
 import eslint from '@eslint/js'
 import stylistic from '@stylistic/eslint-plugin'
 import eslintConfigPrettier from 'eslint-config-prettier'
 import eslintPluginAstro from 'eslint-plugin-astro'
 import eslintPluginUnicorn from 'eslint-plugin-unicorn'
-import tseslint from 'typescript-eslint'
-
 import globals from 'globals'
+import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
   {
@@ -57,6 +57,10 @@ export default tseslint.config(
       ],
       '@stylistic/quote-props': 'off',
       '@stylistic/operator-linebreak': 'off', // conflict with prettier
+      '@stylistic/multiline-ternary': 'off', // conflict with prettier
+      '@stylistic/indent': 'off', // conflict with prettier
+      '@stylistic/indent-binary-ops': 'off', // conflict with prettier
+      '@typescript-eslint/triple-slash-reference': 'off', // astro default behavior
       'unicorn/filename-case': 'off',
       'unicorn/prevent-abbreviations': 'off',
     },

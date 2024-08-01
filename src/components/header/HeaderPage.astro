@@ -1,0 +1,111 @@
+---
+/**
+ * Subhome Header Components
+ *
+ * @param {('white'|'gray')} headerType
+ * @param {('wide'|'normal')} headerWidth
+ * @param {string} title
+ * @param {string} subtitle
+ * @param {string|undefined} slotContainerClassName
+ * @param {ImageType|undefined} icon
+ * @param {string|undefined} iconClassName
+ * @param {number|undefined} number
+ */
+
+import { Image } from 'astro:assets'
+
+import Header from './Header.astro'
+
+import type { ImageType } from '@/types'
+
+interface Props {
+  headerType?: 'white' | 'gray'
+  headerWidth?: 'wide' | 'normal'
+  title: string
+  subtitle?: string
+  slotContainerClassName?: string
+  icon?: ImageType
+  iconClassName?: string
+  number?: number
+}
+
+const {
+  headerType,
+  headerWidth,
+  title,
+  subtitle,
+  slotContainerClassName,
+  icon,
+  iconClassName,
+  number,
+} = Astro.props
+---
+
+<Header
+  slotContainerClassName={slotContainerClassName}
+  headerType={headerType}
+  headerWidth={headerWidth}
+>
+  <div class="w-full py-8">
+    <div class="flex flex-col items-center gap-3 md:flex-row">
+      {
+        !!icon && (
+          <div class:list={['h-[45px] w-[45px]', iconClassName]}>
+            {/* image in public folder: no optimal */}
+            {icon?.sourceUrl?.startsWith('/') && (
+              <Image
+                src={icon.sourceUrl}
+                alt={icon.altText ?? ''}
+                width={icon?.width || 250}
+                height={icon?.height || 250}
+                sizes={icon?.sizes}
+              />
+            )}
+            {/* remote image */}
+            {icon?.sourceUrl?.includes('://') && (
+              <Image
+                src={icon.sourceUrl}
+                alt={icon.altText ?? ''}
+                width={icon?.width}
+                height={icon?.height}
+                sizes={icon?.sizes}
+                inferSize
+              />
+            )}
+            {/* local import image */}
+            {!!icon?.sourceUrl && !!icon?.imageMetadata && (
+              <Image
+                src={icon.imageMetadata.src}
+                alt={icon.altText ?? ''}
+                width={icon?.width || icon.imageMetadata.width}
+                height={icon?.height || icon.imageMetadata.height}
+                sizes={icon?.sizes}
+                inferSize
+              />
+            )}
+          </div>
+        )
+      }
+      <h1
+        class="flex items-center gap-4 text-center text-2xl font-semibold leading-tight tracking-tight md:text-left md:text-3xl xl:text-4xl"
+      >
+        <span class="thi-text-rainbow">{title}</span>
+        {
+          number && (
+            <span class="rounded-lg bg-[#565a6b] px-2 py-1 text-[60%] font-medium leading-snug tracking-wide text-white">
+              {number}
+            </span>
+          )
+        }
+      </h1>
+    </div>
+
+    {
+      subtitle && (
+        <div class="mt-4 text-center text-gray-100 md:mt-0 md:pl-[60px] md:text-left lg:w-4/5">
+          {subtitle}
+        </div>
+      )
+    }
+  </div>
+</Header>
